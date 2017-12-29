@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzh.dao.OrganizationDao">
+    <resultMap id="OrgMap" type="com.zzh.entity.Organization">
+        <id     column="id"             property="orgId"        jdbcType="INTEGER"  />
+        <result column="name"           property="orgName"      jdbcType="VARCHAR"  />
+        <result column="parent_id"      property="parentOrgId"  jdbcType="INTEGER"  />
+        <result column="created_date"   property="createdDate"  jdbcType="TIMESTAMP"/>
+        <result column="created_by"     property="createdBy"    jdbcType="VARCHAR"  />
+        <result column="modified_date"  property="modifiedDate" jdbcType="TIMESTAMP"/>
+        <result column="modified_by"    property="modifiedBy"   jdbcType="VARCHAR"  />
+        <result column="deleted"        property="deleted"      jdbcType="INTEGER"  />
+    </resultMap>
+
+    <select id="selectList" resultMap="OrgMap">
+        SELECT *
+        FROM sys_organization
+        WHERE deleted = 0
+    </select>
+
+</mapper>

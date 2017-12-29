@@ -64,10 +64,73 @@
         FROM sys_user u
         LEFT JOIN sys_user_role ur ON u.user_id = ur.user_id
         LEFT JOIN sys_role r ON ur.role_id = r.role_id
+        LEFT JOIN sys_organization o ON o.id = u.organization_id
         WHERE u.user_id = #{userId}
         AND u.deleted = 0
         AND r.available = 1
         AND r.deleted = 0
     </select>
+
+    <select id="findCount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM sys_user
+        WHERE deleted = 0
+    </select>
+
+    <select id="findList" parameterType="com.zzh.entity.Page" resultMap="SimpleResultMap">
+        SELECT <include refid="user_column" />
+        FROM sys_user
+        WHERE deleted = 0
+        ORDER BY user_id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="findCountByStatus" parameterType="java.lang.Boolean" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM sys_user
+        WHERE deleted = 0
+        AND locked = #{0}
+    </select>
+
+    <select id="findListByStatus" parameterType="com.zzh.entity.dto.SelectPageDto" resultMap="SimpleResultMap">
+        SELECT *
+        FROM (
+            SELECT <include refid="user_column" />
+            FROM sys_user
+            WHERE deleted = 0
+            AND locked = #{param}
+            ORDER BY user_id DESC
+        ) a
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <update id="deleteOne" parameterType="java.lang.Long">
+        UPDATE sys_user
+        SET deleted = 1
+        WHERE user_id = #{userId}
+    </update>
+
+    <update id="resetPwd">
+        UPDATE sys_user
+        SET password = 'd3c59d25033dbf980d29554025c23a75'
+        WHERE user_id = #{userId}
+    </update>
+
+    <update id="updateOne" parameterType="com.zzh.entity.dto.UserSaveDto">
+        UPDATE sys_user
+        SET username = #{userName}, locked = #{locked}, organization_id = #{organizationId}
+        WHERE user_id = #{userId}
+    </update>
+
+    <delete id="deleteUserRole" parameterType="java.lang.Long">
+        DELETE FROM sys_user_role WHERE user_id = #{id}
+    </delete>
+
+    <insert id="insertUserRole" parameterType="java.util.List">
+        INSERT INTO sys_user_role VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.userId}, #{item.roleId})
+        </foreach>
+    </insert>
 
 </mapper>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzh.dao.RoleDao">
+    <resultMap id="RoleMap" type="com.zzh.entity.Role">
+        <id     column="role_id"        property="roleId"       jdbcType="INTEGER"  />
+        <result column="role_name"      property="roleName"     jdbcType="VARCHAR"  />
+        <result column="description"    property="description"  jdbcType="VARCHAR"  />
+        <result column="available"      property="available"    jdbcType="INTEGER"  />
+        <result column="created_date"   property="createdDate"  jdbcType="TIMESTAMP"/>
+        <result column="created_by"     property="createdBy"    jdbcType="VARCHAR"  />
+        <result column="modified_date"  property="modifiedDate" jdbcType="TIMESTAMP"/>
+        <result column="modified_by"    property="modifiedBy"   jdbcType="VARCHAR"  />
+        <result column="deleted"        property="deleted"      jdbcType="INTEGER"  />
+    </resultMap>
+
+    <select id="findOne" parameterType="java.lang.Long" resultMap="RoleMap">
+        SELECT *
+        FROM sys_role
+        WHERE role_id = #{0}
+    </select>
+
+    <select id="findCount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM sys_role
+        WHERE deleted = 0
+    </select>
+
+    <select id="findList" parameterType="com.zzh.entity.Page" resultMap="RoleMap">
+        SELECT *
+        FROM sys_role
+        WHERE deleted = 0
+        ORDER BY role_id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+    
+    <select id="findCountByStatus" parameterType="java.lang.Boolean" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM sys_role
+        WHERE deleted = 0
+        AND available = #{0}
+    </select>
+
+    <select id="findListByStatus" parameterType="com.zzh.entity.dto.SelectPageDto" resultMap="RoleMap">
+        SELECT *
+        FROM (
+            SELECT *
+            FROM sys_role
+            WHERE deleted = 0
+            AND available = #{param}
+            ORDER BY role_id DESC
+        ) a
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectList" resultMap="RoleMap">
+        SELECT *
+        FROM sys_role
+        WHERE deleted = 0
+    </select>
+    
+    <select id="selectListWithQuery" resultMap="RoleMap" parameterType="java.lang.String">
+        SELECT *
+        FROM sys_role
+        WHERE deleted = 0
+        AND role_name LIKE #{0}
+    </select>
+
+    <update id="deleteRole" parameterType="java.lang.Long">
+        UPDATE sys_role
+        SET deleted = 1
+        WHERE role_id = #{0}
+    </update>
+
+    <update id="updateOne" parameterType="com.zzh.entity.dto.RoleSaveDto">
+        UPDATE sys_role
+        SET role_name = #{roleName}, description = #{description}, available = #{available}
+        WHERE role_id = #{roleId}
+    </update>
+
+</mapper>
