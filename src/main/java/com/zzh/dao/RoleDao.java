@@ -33,4 +33,8 @@ public interface RoleDao {
 
     void updateOne(RoleSaveDto dto);
 
+    void deleteRoleMenu(Long roleId);
+
+    void insertRoleMenu(List list);
+
 }

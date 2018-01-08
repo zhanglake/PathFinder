@@ -32,7 +32,7 @@ public class RoleController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public Page findList(@RequestBody TableRequest tableRequest) {
-        Page<Role> rolePage = new Page<Role>(tableRequest.getPageSize(), tableRequest.getPageNumber());;
+        Page<Role> rolePage = new Page<Role>(tableRequest.getPageSize(), tableRequest.getPageNumber());
         if (null != tableRequest.getParam()) {
             rolePage = roleService.findListByStatus(rolePage, tableRequest.getParam());
         } else {

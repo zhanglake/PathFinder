@@ -3,12 +3,14 @@ package com.zzh.service;
 import com.zzh.dao.RoleDao;
 import com.zzh.entity.Page;
 import com.zzh.entity.Role;
+import com.zzh.entity.dto.RoleMenuDto;
 import com.zzh.entity.dto.RoleSaveDto;
 import com.zzh.entity.dto.SelectPageDto;
 import com.zzh.entity.dto.UserRoleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,6 +66,17 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void updateOne(RoleSaveDto dto) {
+        List<Long> menuIds = dto.getMenus();
+        List<RoleMenuDto> dtos = new ArrayList<RoleMenuDto>();
+        for (Long menuId : menuIds) {
+            RoleMenuDto roleMenuDto = new RoleMenuDto(dto.getRoleId(), menuId);
+            dtos.add(roleMenuDto);
+        }
+        // 删除原来的role-menu关联
+        roleDao.deleteRoleMenu(dto.getRoleId());
+        // 插入role-menu关联
+        roleDao.insertRoleMenu(dtos);
+        // 修改角色
         roleDao.updateOne(dto);
     }
 

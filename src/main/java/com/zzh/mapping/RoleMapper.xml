@@ -11,12 +11,22 @@
         <result column="modified_date"  property="modifiedDate" jdbcType="TIMESTAMP"/>
         <result column="modified_by"    property="modifiedBy"   jdbcType="VARCHAR"  />
         <result column="deleted"        property="deleted"      jdbcType="INTEGER"  />
+        <collection property="menus" ofType="com.zzh.entity.Menu">
+            <id     column="menu_id"        property="menuId"       jdbcType="INTEGER"  />
+            <result column="menu_name"      property="menuName"     jdbcType="VARCHAR"  />
+            <result column="path"           property="path"         jdbcType="VARCHAR"  />
+            <result column="sort"           property="sort"         jdbcType="INTEGER"  />
+            <result column="parent_id"      property="parentId"     jdbcType="INTEGER"  />
+            <result column="full_name"      property="fullName"     jdbcType="VARCHAR"  />
+        </collection>
     </resultMap>
 
     <select id="findOne" parameterType="java.lang.Long" resultMap="RoleMap">
         SELECT *
-        FROM sys_role
-        WHERE role_id = #{0}
+        FROM sys_role r
+        LEFT JOIN sys_role_menu rm ON r.role_id = rm.role_id
+        LEFT JOIN sys_menu m ON m.menu_id = rm.menu_id
+        WHERE r.role_id = #{0}
     </select>
 
     <select id="findCount" resultType="java.lang.Integer">
@@ -76,5 +86,16 @@
         SET role_name = #{roleName}, description = #{description}, available = #{available}
         WHERE role_id = #{roleId}
     </update>
+
+    <delete id="deleteRoleMenu" parameterType="java.lang.Long">
+        DELETE FROM sys_role_menu WHERE role_id = #{0}
+    </delete>
+
+    <insert id="insertRoleMenu" parameterType="java.util.List">
+        INSERT INTO sys_role_menu VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.roleId}, #{item.menuId})
+        </foreach>
+    </insert>
 
 </mapper>

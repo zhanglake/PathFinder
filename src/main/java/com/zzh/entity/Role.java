@@ -6,11 +6,21 @@ import java.util.List;
  * Created by zhenghua.zhang on 2017/12/20.
  */
 public class Role extends BaseEntity {
+
     private Long roleId;
     private String roleName;
     private String description;
-//    private List<Resource> resources;
     private Boolean available = Boolean.FALSE;
+    private List<Menu> menus;
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
+    }
+
+    public List<Menu> getMenus() {
+
+        return menus;
+    }
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
@@ -44,4 +54,5 @@ public class Role extends BaseEntity {
     public Boolean getAvailable() {
         return available;
     }
+
 }
