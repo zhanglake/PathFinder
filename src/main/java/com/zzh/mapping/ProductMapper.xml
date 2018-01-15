@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzh.dao.ProductDao">
+    <resultMap id="ProductMap" type="com.zzh.entity.Product">
+        <id     column="product_id"     property="productId"    jdbcType="INTEGER"  />
+        <result column="product_name"   property="productName"  jdbcType="VARCHAR"  />
+        <result column="available"      property="available"    jdbcType="INTEGER"  />
+        <result column="price"          property="price"        jdbcType="DECIMAL"  />
+        <result column="stock"          property="stock"        jdbcType="INTEGER"  />
+        <result column="discount"       property="discount"     jdbcType="DECIMAL"  />
+        <result column="price"          property="price"        jdbcType="DECIMAL"  />
+        <result column="sale_price"     property="salePrice"    jdbcType="DECIMAL"  />
+        <result column="description"    property="description"  jdbcType="VARCHAR"  />
+        <result column="created_date"   property="createdDate"  jdbcType="TIMESTAMP"/>
+        <result column="created_by"     property="createdBy"    jdbcType="VARCHAR"  />
+        <result column="modified_date"  property="modifiedDate" jdbcType="TIMESTAMP"/>
+        <result column="modified_by"    property="modifiedBy"   jdbcType="VARCHAR"  />
+        <result column="deleted"        property="deleted"      jdbcType="INTEGER"  />
+        <collection property="pictures" ofType="com.zzh.entity.MyFile">
+            <id     column="file_id"      property="fileId"       jdbcType="INTEGER" />
+            <result column="file_name"    property="fileName"     jdbcType="VARCHAR" />
+            <result column="description1" property="description"  jdbcType="VARCHAR" />
+            <result column="type"         property="type"         jdbcType="VARCHAR" />
+            <result column="path"         property="path"         jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+
+    <select id="findCount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM bus_product
+        WHERE deleted = 0
+    </select>
+
+    <select id="findList" parameterType="com.zzh.entity.dto.SelectPageDto" resultMap="ProductMap">
+        SELECT *
+        FROM bus_product
+        WHERE deleted = 0
+        ORDER BY product_id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="findOne" parameterType="java.lang.Long" resultMap="ProductMap">
+        SELECT *
+        FROM bus_product p
+        LEFT JOIN bus_product_pic pp ON p.product_id = pp.product_id
+        LEFT JOIN sys_file f ON f.file_id = pp.file_id
+        WHERE p.product_id = #{0}
+    </select>
+
+    <insert id="insertOne" useGeneratedKeys="true" keyProperty="productId" parameterType="com.zzh.entity.Product">
+        INSERT INTO bus_product
+        (product_name, created_date, created_by, modified_date, modified_by, deleted, available, price, stock, discount, description, sale_price)
+        VALUES
+        (
+          #{productName}, #{createdDate}, #{createdBy}, #{modifiedDate}, #{modifiedBy},
+          #{deleted}, #{available}, #{price}, #{stock}, #{discount}, #{description}, #{salePrice}
+        )
+    </insert>
+
+    <update id="updateOne" useGeneratedKeys="true" keyProperty="productId" parameterType="com.zzh.entity.Product">
+        UPDATE bus_product
+        SET
+          product_name = #{productName}, modified_date = #{modifiedDate}, modified_by = #{modifiedBy},
+          deleted = #{deleted}, available = #{available}, price = #{price}, stock = #{stock}, discount = #{discount},
+          description = #{description}, sale_price = #{salePrice}
+        WHERE product_id = #{productId}
+    </update>
+
+    <insert id="insertProductPicture" parameterType="java.util.List">
+        INSERT INTO bus_product_pic VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.productId}, #{item.pictureId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteProductPicture" parameterType="java.lang.Long">
+        DELETE FROM bus_product_pic
+        WHERE product_id = #{0}
+    </delete>
+
+    <update id="deleteOne" parameterType="java.lang.Long">
+        UPDATE bus_product
+        SET deleted = 1
+        WHERE product_id = #{0}
+    </update>
+
+</mapper>

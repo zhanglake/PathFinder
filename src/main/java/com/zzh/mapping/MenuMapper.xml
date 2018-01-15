@@ -17,6 +17,7 @@
         LEFT JOIN sys_role r ON r.role_id = rm.role_id
         WHERE r.role_id = #{0}
         AND m.parent_id IS NULL
+        ORDER BY sort ASC
     </select>
 
     <select id="selectSecondaryMenuByRoleIdAndTopMenuId" resultMap="MenuMap">
@@ -26,18 +27,21 @@
         LEFT JOIN sys_role r ON r.role_id = rm.role_id
         WHERE r.role_id = #{0}
         AND m.parent_id = #{1}
+        ORDER BY sort ASC
     </select>
     
     <select id="selectTopMenus" resultMap="MenuMap">
         SELECT *
         FROM sys_menu
         WHERE parent_id IS NULL
+        ORDER BY sort ASC
     </select>
 
     <select id="selectSecondaryMenus" parameterType="java.lang.Long" resultMap="MenuMap">
         SELECT *
         FROM sys_menu
         WHERE parent_id = #{0}
+        ORDER BY sort ASC
     </select>
 
     <select id="selectOne" parameterType="java.lang.Long" resultMap="MenuMap">

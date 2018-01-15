@@ -1,0 +1,44 @@
+package com.zzh.controller;
+
+import com.zzh.entity.Customer;
+import com.zzh.entity.Page;
+import com.zzh.entity.Result;
+import com.zzh.entity.dto.TableRequest;
+import com.zzh.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * Created by zhenghua.zhang on 2018/1/11.
+ */
+@Controller
+@RequestMapping("customer")
+public class CustomerController {
+
+    @Autowired
+    private CustomerService customerService;
+
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    @ResponseBody
+    public Page findList(@RequestBody TableRequest tableRequest) {
+        Page<Customer> customerPage = new Page<Customer>(tableRequest.getPageSize(), tableRequest.getPageNumber());
+        customerPage = customerService.findList(customerPage, null);
+        return customerPage;
+    }
+
+    @RequestMapping(value = "/addorupdate", method = RequestMethod.POST)
+    @ResponseBody
+    public Result addOrUpdateCustomer(@RequestBody Customer customer) {
+        try {
+            customerService.addOrUpdateCustomer(customer);
+            return new Result("保存成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result("保存失败");
+        }
+    }
+}

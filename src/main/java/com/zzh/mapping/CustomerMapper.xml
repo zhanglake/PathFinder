@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzh.dao.CustomerDao">
+    <resultMap id="CustomerMap" type="com.zzh.entity.Customer">
+        <id     column="customer_id"    property="customerId"   jdbcType="INTEGER"  />
+        <result column="customer_name"  property="customerName" jdbcType="VARCHAR"  />
+        <result column="contact"        property="contact"      jdbcType="VARCHAR"  />
+        <result column="phone"          property="phone"        jdbcType="VARCHAR"  />
+        <result column="mobile"         property="mobile"       jdbcType="VARCHAR"  />
+        <result column="province"       property="provinceInt"  jdbcType="INTEGER"  />
+        <result column="address"        property="address"      jdbcType="VARCHAR"  />
+        <result column="created_date"   property="createdDate"  jdbcType="TIMESTAMP"/>
+        <result column="created_by"     property="createdBy"    jdbcType="VARCHAR"  />
+        <result column="modified_date"  property="modifiedDate" jdbcType="TIMESTAMP"/>
+        <result column="modified_by"    property="modifiedBy"   jdbcType="VARCHAR"  />
+        <result column="deleted"        property="deleted"      jdbcType="INTEGER"  />
+    </resultMap>
+
+    <select id="findCount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM bus_customer
+        WHERE deleted = 0
+    </select>
+
+    <select id="findList" parameterType="com.zzh.entity.dto.SelectPageDto" resultMap="CustomerMap">
+        SELECT *
+        FROM bus_customer
+        WHERE deleted = 0
+        ORDER BY customer_id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <insert id="insertCustomer" parameterType="com.zzh.entity.Customer">
+        INSERT INTO bus_customer
+          (customer_name, created_date, created_by, modified_date, modified_by, deleted, contact, phone, mobile, province, address)
+        VALUES
+          (
+            #{customerName}, #{createdDate}, #{createdBy}, #{modifiedDate}, #{modifiedBy},
+            #{deleted}, #{contact}, #{phone}, #{mobile}, #{provinceInt}, #{address}
+          )
+    </insert>
+
+</mapper>
