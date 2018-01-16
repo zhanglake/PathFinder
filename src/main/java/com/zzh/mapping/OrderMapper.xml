@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzh.dao.OrderDao">
+    <resultMap id="CustomerMap" type="com.zzh.entity.Customer">
+        <id     column="customer_id"    property="customerId"   jdbcType="INTEGER"  />
+        <result column="customer_name"  property="customerName" jdbcType="VARCHAR"  />
+        <result column="contact"        property="contact"      jdbcType="VARCHAR"  />
+        <result column="phone"          property="phone"        jdbcType="VARCHAR"  />
+        <result column="mobile"         property="mobile"       jdbcType="VARCHAR"  />
+        <result column="province"       property="provinceInt"  jdbcType="INTEGER"  />
+        <result column="address"        property="address"      jdbcType="VARCHAR"  />
+        <result column="created_date"   property="createdDate"  jdbcType="TIMESTAMP"/>
+        <result column="created_by"     property="createdBy"    jdbcType="VARCHAR"  />
+        <result column="modified_date"  property="modifiedDate" jdbcType="TIMESTAMP"/>
+        <result column="modified_by"    property="modifiedBy"   jdbcType="VARCHAR"  />
+        <result column="deleted"        property="deleted"      jdbcType="INTEGER"  />
+    </resultMap>
+
+    <resultMap id="OrderMap" type="com.zzh.entity.Order">
+        <id     column="order_id"       property="orderId"      jdbcType="INTEGER"  />
+        <result column="order_code"    property="orderCode"   jdbcType="VARCHAR"  />
+        <result column="customer_id"    property="customerId"   jdbcType="INTEGER"  />
+        <result column="total_price"    property="totalPrice"   jdbcType="DECIMAL"  />
+        <result column="status"         property="statusInt"    jdbcType="INTEGER"  />
+        <result column="created_date"   property="createdDate"  jdbcType="TIMESTAMP"/>
+        <result column="created_by"     property="createdBy"    jdbcType="VARCHAR"  />
+        <result column="modified_date"  property="modifiedDate" jdbcType="TIMESTAMP"/>
+        <result column="modified_by"    property="modifiedBy"   jdbcType="VARCHAR"  />
+        <result column="deleted"        property="deleted"      jdbcType="INTEGER"  />
+        <association    property="customer"     resultMap="CustomerMap" />
+    </resultMap>
+
+    <insert id="insertOne" useGeneratedKeys="true" keyProperty="orderId" parameterType="com.zzh.entity.Order">
+        INSERT INTO bus_order
+          (customer_id, total_price, status)
+        VALUES
+          (#{customerId}, #{totalPrice}, #{statusInt})
+    </insert>
+
+    <select id="findByCustomerId" parameterType="java.lang.Long" resultMap="OrderMap">
+        SELECT *
+        FROM bus_order o
+        LEFT JOIN bus_customer c ON c.customer_id = o.customer_id
+        WHERE o.customer_id = #{0}
+        ORDER BY o.order_id DESC
+    </select>
+
+    <select id="findByOrderId" parameterType="java.lang.Long" resultMap="OrderMap">
+        SELECT *
+        FROM bus_order o
+        WHERE o.order_id = #{0}
+    </select>
+
+</mapper>

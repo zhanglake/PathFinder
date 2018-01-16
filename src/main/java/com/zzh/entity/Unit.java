@@ -26,9 +26,28 @@ public class Unit {
         }
 
         public String getName() {
-
             return name;
         }
     }
+
+    // 订单状态
+    public static enum ORDER_STATUS {
+        CREATED("已创建"), PAYED("已付款"), CONFIRMED("已确认"), DELIVERED("已发货"), FINISHED("已完成");
+
+        private String name;
+
+        ORDER_STATUS (String name) {
+            this.name = name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
 
 }

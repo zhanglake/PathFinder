@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzh.dao.OrderDetailDao">
+    <resultMap id="ProductMap" type="com.zzh.entity.Product">
+        <id     column="product_id"     property="productId"    jdbcType="INTEGER"  />
+        <result column="product_name"   property="productName"  jdbcType="VARCHAR"  />
+        <result column="price"          property="price"        jdbcType="DECIMAL"  />
+        <result column="discount"       property="discount"     jdbcType="DECIMAL"  />
+        <result column="price"          property="price"        jdbcType="DECIMAL"  />
+        <result column="sale_price"     property="salePrice"    jdbcType="DECIMAL"  />
+        <result column="description1"    property="description"  jdbcType="VARCHAR"  />
+    </resultMap>
+
+    <resultMap id="OrderDetailMap" type="com.zzh.entity.OrderDetail">
+        <id     column="order_detail_id"    property="orderDetailId"    jdbcType="INTEGER"  />
+        <result column="product_id"         property="productId"        jdbcType="INTEGER"  />
+        <result column="order_id"           property="orderId"          jdbcType="INTEGER"  />
+        <result column="count"              property="count"            jdbcType="INTEGER"  />
+        <result column="price"              property="price"            jdbcType="DECIMAL"  />
+        <result column="count_price"        property="countPrice"       jdbcType="DECIMAL"  />
+        <result column="description"        property="description"      jdbcType="VARCHAR"  />
+        <association    property="product"     resultMap="ProductMap" />
+    </resultMap>
+
+    <insert id="insertOne" useGeneratedKeys="true" keyProperty="orderDetailId" parameterType="com.zzh.entity.OrderDetail">
+        INSERT INTO bus_order_detail
+          (product_id, order_id, count, price, count_price, description)
+        VALUES
+          (#{productId}, #{orderId}, #{count}, #{price}, #{countPrice}, #{description})
+    </insert>
+    
+    <insert id="insertList" parameterType="java.util.List">
+        INSERT INTO bus_order_detail
+          (product_id, order_id, count, price, count_price, description)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+          (#{item.productId}, #{item.orderId}, #{item.count}, #{item.price}, #{item.countPrice}, #{item.description})
+        </foreach>
+    </insert>
+
+    <select id="findByOrderId" parameterType="java.lang.Long" resultMap="OrderDetailMap">
+        SELECT *
+        FROM bus_order_detail od
+        LEFT JOIN bus_product p ON p.product_id = od.product_id
+        WHERE order_id = #{orderId}
+    </select>
+
+</mapper>

@@ -4,12 +4,15 @@ import com.zzh.entity.Customer;
 import com.zzh.entity.Page;
 import com.zzh.entity.Product;
 import com.zzh.entity.Result;
+import com.zzh.entity.dto.ProductListByTypeDto;
 import com.zzh.entity.dto.ProductSaveDto;
 import com.zzh.entity.dto.TableRequest;
 import com.zzh.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by zhenghua.zhang on 2018/1/15.
@@ -52,6 +55,13 @@ public class ProductController {
     public Result deleteOne(@PathVariable("id") Long id) {
         productService.deleteOne(id);
         return new Result("删除成功");
+    }
+
+    @RequestMapping(value = "/c/list", method = RequestMethod.GET)
+    @ResponseBody
+    public Result findWithType() {
+        List<ProductListByTypeDto> dtos = productService.findProductsByType();
+        return new Result(dtos);
     }
 
 }

@@ -16,6 +16,8 @@ public interface CustomerDao {
 
     List<Customer> findList(SelectPageDto dto);
 
+    Customer findOneByPhone(String phone);
+
     void insertCustomer(Customer customer);
 
 }

@@ -12,4 +12,6 @@ public interface CustomerService {
 
     void addOrUpdateCustomer(Customer customer) throws Exception;
 
+    Customer findOneByPhone(String phone);
+
 }

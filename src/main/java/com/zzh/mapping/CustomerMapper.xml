@@ -30,6 +30,13 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
+    <select id="findOneByPhone" parameterType="java.lang.String" resultMap="CustomerMap">
+        SELECT *
+        FROM bus_customer
+        WHERE phone = #{0}
+        OR mobile = #{0}
+    </select>
+
     <insert id="insertCustomer" parameterType="com.zzh.entity.Customer">
         INSERT INTO bus_customer
           (customer_name, created_date, created_by, modified_date, modified_by, deleted, contact, phone, mobile, province, address)

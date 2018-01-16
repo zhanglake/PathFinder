@@ -43,4 +43,10 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
+    @Override
+    public Customer findOneByPhone(String phone) {
+        Customer customer = customerDao.findOneByPhone(phone);
+        return customer;
+    }
+
 }

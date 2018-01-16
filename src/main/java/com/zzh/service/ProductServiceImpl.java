@@ -1,9 +1,12 @@
 package com.zzh.service;
 
 import com.zzh.dao.ProductDao;
+import com.zzh.dao.TypeDao;
 import com.zzh.entity.Page;
 import com.zzh.entity.Product;
+import com.zzh.entity.Type;
 import com.zzh.entity.Unit;
+import com.zzh.entity.dto.ProductListByTypeDto;
 import com.zzh.entity.dto.ProductPictureDto;
 import com.zzh.entity.dto.ProductSaveDto;
 import com.zzh.entity.dto.SelectPageDto;
@@ -22,6 +25,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductDao productDao;
+    @Autowired
+    private TypeDao typeDao;
 
     @Override
     public Page<Product> findList(Page page, Object param) {
@@ -75,6 +80,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteOne(Long id) {
         productDao.deleteOne(id);
+    }
+
+    @Override
+    public List<ProductListByTypeDto> findProductsByType() {
+        List<Type> types = typeDao.findAll();
+        List<ProductListByTypeDto> dtos = new ArrayList<ProductListByTypeDto>();
+        for (Type type : types) {
+            List<Product> products = productDao.findByTypeId(type.getTypeId());
+            ProductListByTypeDto dto = new ProductListByTypeDto(type, products);
+            dtos.add(dto);
+        }
+        return dtos;
     }
 
 }

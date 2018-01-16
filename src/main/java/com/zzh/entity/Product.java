@@ -22,6 +22,26 @@ public class Product extends BaseEntity {
     private Double discount;
     // 促销价
     private Double salePrice;
+    // 种类
+    private Type type;
+    private Long typeId;
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
+    }
+
+    public Type getType() {
+
+        return type;
+    }
+
+    public Long getTypeId() {
+        return typeId;
+    }
 
     public void setSalePrice(Double salePrice) {
         this.salePrice = salePrice;

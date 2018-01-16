@@ -28,4 +28,6 @@ public interface ProductDao {
 
     void deleteOne(Long productId);
 
+    List<Product> findByTypeId(Long typeId);
+
 }

@@ -7,10 +7,7 @@ import com.zzh.entity.dto.TableRequest;
 import com.zzh.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by zhenghua.zhang on 2018/1/11.
@@ -41,4 +38,12 @@ public class CustomerController {
             return new Result("保存失败");
         }
     }
+
+    @RequestMapping(value = "/one/{phone}", method = RequestMethod.GET)
+    @ResponseBody
+    public Result findByPhone(@PathVariable("phone") String phone) {
+        Customer customer = customerService.findOneByPhone(phone);
+        return new Result(customer);
+    }
+
 }
