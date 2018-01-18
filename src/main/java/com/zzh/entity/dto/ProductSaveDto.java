@@ -25,6 +25,17 @@ public class ProductSaveDto {
     private Double discount;
     // 促销价
     private Double salePrice;
+    // 分类
+    private Long typeId;
+
+    public void setTypeId(Long typeId) {
+        this.typeId = typeId;
+    }
+
+    public Long getTypeId() {
+
+        return typeId;
+    }
 
     public void setPictures(List<Object> pictures) {
         this.pictures = pictures;

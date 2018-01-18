@@ -1,6 +1,8 @@
 package com.zzh.dao;
 
 import com.zzh.entity.Order;
+import com.zzh.entity.Page;
+import com.zzh.entity.dto.OrderSelectPageDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,5 +18,13 @@ public interface OrderDao {
     List<Order> findByCustomerId(Long customerId);
 
     Order findByOrderId(Long orderId);
+
+    Order findByOrderIdWithCustomer(Long orderId);
+
+    Integer findCount(OrderSelectPageDto dto);
+
+    List<Order> findList(OrderSelectPageDto dto);
+
+    void changeOrderStatus(Long orderId, Integer status);
 
 }

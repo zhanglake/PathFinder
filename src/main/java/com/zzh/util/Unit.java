@@ -1,4 +1,8 @@
-package com.zzh.entity;
+package com.zzh.util;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by zhenghua.zhang on 2018/1/11.
@@ -32,7 +36,7 @@ public class Unit {
 
     // 订单状态
     public static enum ORDER_STATUS {
-        CREATED("已创建"), PAYED("已付款"), CONFIRMED("已确认"), DELIVERED("已发货"), FINISHED("已完成");
+        CREATED("已创建"), PAYED("已付款"), CONFIRMED("已确认"), DELIVERED("发货中"), FINISHED("已完成");
 
         private String name;
 
@@ -48,6 +52,5 @@ public class Unit {
             return name;
         }
     }
-
 
 }

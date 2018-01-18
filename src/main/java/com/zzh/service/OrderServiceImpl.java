@@ -3,11 +3,13 @@ package com.zzh.service;
 import com.zzh.dao.OrderDao;
 import com.zzh.entity.Order;
 import com.zzh.entity.OrderDetail;
+import com.zzh.entity.Page;
+import com.zzh.entity.dto.OrderSelectPageDto;
+import com.zzh.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void insertOne(Order order) {
         // 插入订单信息
-        order.setOrderCode(String.valueOf(new Date().getTime()));
+        order.setOrderCode(Utils.generateOrderId(2));
         orderDao.insertOne(order);
         Long orderId = order.getOrderId();
 
@@ -52,6 +54,30 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDetail> orderDetails = orderDetailService.findByOrderId(order.getOrderId());
         order.setOrderDetails(orderDetails);
         return order;
+    }
+
+    @Override
+    public Order findByOrderIdWithCustomer(Long orderId) {
+        Order order = orderDao.findByOrderIdWithCustomer(orderId);
+        List<OrderDetail> orderDetails = orderDetailService.findByOrderId(order.getOrderId());
+        order.setOrderDetails(orderDetails);
+        return order;
+    }
+
+    @Override
+    public Page<Order> findList(OrderSelectPageDto dto) {
+        dto.setOrderCode("%" + dto.getOrderCode() + "%");
+        Integer count = orderDao.findCount(dto);
+        List<Order> orderList = orderDao.findList(dto);
+        Page<Order> orderPage = new Page<Order>(dto.getPageSize(), dto.getPageNo());
+        orderPage.setResults(orderList);
+        orderPage.setTotalRecord(count);
+        return orderPage;
+    }
+
+    @Override
+    public void changeOrderStatus(Long orderId, Integer status) {
+        orderDao.changeOrderStatus(orderId, status);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.zzh.entity;
 
+import com.zzh.util.Unit;
+
 import java.util.List;
 
 /**

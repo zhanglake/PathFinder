@@ -5,7 +5,6 @@ import com.zzh.dao.TypeDao;
 import com.zzh.entity.Page;
 import com.zzh.entity.Product;
 import com.zzh.entity.Type;
-import com.zzh.entity.Unit;
 import com.zzh.entity.dto.ProductListByTypeDto;
 import com.zzh.entity.dto.ProductPictureDto;
 import com.zzh.entity.dto.ProductSaveDto;
@@ -55,6 +54,7 @@ public class ProductServiceImpl implements ProductService {
         product.setStock(dto.getStock());
         product.setAvailable(dto.getAvailable());
         product.setDescription(dto.getDescription());
+        product.setTypeId(dto.getTypeId());
         if (null != dto.getProductId()) {
             // 更新
             product.setProductId(dto.getProductId());

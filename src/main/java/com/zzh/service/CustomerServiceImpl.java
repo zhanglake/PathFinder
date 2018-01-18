@@ -3,7 +3,7 @@ package com.zzh.service;
 import com.zzh.dao.CustomerDao;
 import com.zzh.entity.Customer;
 import com.zzh.entity.Page;
-import com.zzh.entity.Unit;
+import com.zzh.util.Unit;
 import com.zzh.entity.dto.SelectPageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

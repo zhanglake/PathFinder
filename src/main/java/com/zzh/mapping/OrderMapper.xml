@@ -18,7 +18,7 @@
 
     <resultMap id="OrderMap" type="com.zzh.entity.Order">
         <id     column="order_id"       property="orderId"      jdbcType="INTEGER"  />
-        <result column="order_code"    property="orderCode"   jdbcType="VARCHAR"  />
+        <result column="order_code"     property="orderCode"   jdbcType="VARCHAR"  />
         <result column="customer_id"    property="customerId"   jdbcType="INTEGER"  />
         <result column="total_price"    property="totalPrice"   jdbcType="DECIMAL"  />
         <result column="status"         property="statusInt"    jdbcType="INTEGER"  />
@@ -32,9 +32,9 @@
 
     <insert id="insertOne" useGeneratedKeys="true" keyProperty="orderId" parameterType="com.zzh.entity.Order">
         INSERT INTO bus_order
-          (customer_id, total_price, status)
+          (customer_id, total_price, status, order_code, created_date, created_by, modified_date, modified_by, deleted)
         VALUES
-          (#{customerId}, #{totalPrice}, #{statusInt})
+          (#{customerId}, #{totalPrice}, #{statusInt}, #{orderCode}, #{createdDate}, #{createdBy}, #{modifiedDate}, #{modifiedBy}, #{deleted})
     </insert>
 
     <select id="findByCustomerId" parameterType="java.lang.Long" resultMap="OrderMap">
@@ -50,5 +50,59 @@
         FROM bus_order o
         WHERE o.order_id = #{0}
     </select>
+
+    <select id="findByOrderIdWithCustomer" parameterType="java.lang.Long" resultMap="OrderMap">
+        SELECT *
+        FROM bus_order o
+        LEFT JOIN bus_customer c ON c.customer_id = o.customer_id
+        WHERE o.order_id = #{0}
+    </select>
+
+    <select id="findCount" parameterType="com.zzh.entity.dto.OrderSelectPageDto" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM bus_order
+        WHERE deleted = 0
+        <if test="orderCode != null and orderCode != ''">
+            AND order_code LIKE #{orderCode}
+        </if>
+        <if test="createdDateStart != null and createdDateStart != ''">
+            AND created_date <![CDATA[>=]]> #{createdDateStart}
+        </if>
+        <if test="createdDateEnd != null and createdDateEnd != ''">
+            AND created_date <![CDATA[<=]]> #{createdDateEnd}
+        </if>
+        <if test="statusInt != null and statusInt != '' or statusInt == 0">
+            AND status = #{statusInt}
+        </if>
+    </select>
+
+    <select id="findList" parameterType="com.zzh.entity.dto.OrderSelectPageDto" resultMap="OrderMap">
+        SELECT *
+        FROM (
+          SELECT *
+          FROM bus_order
+          WHERE deleted = 0
+          <if test="orderCode != null and orderCode != ''">
+            AND order_code LIKE #{orderCode}
+          </if>
+          <if test="createdDateStart != null and createdDateStart != ''">
+            AND created_date <![CDATA[>=]]> #{createdDateStart}
+          </if>
+          <if test="createdDateEnd != null and createdDateEnd != ''">
+              AND created_date <![CDATA[<=]]> #{createdDateEnd}
+          </if>
+          <if test="statusInt != null and statusInt != '' or statusInt == 0">
+            AND status = #{statusInt}
+          </if>
+          ORDER BY order_id DESC
+        ) a
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <update id="changeOrderStatus">
+        UPDATE bus_order
+        SET status = #{1}
+        WHERE order_id = #{0}
+    </update>
 
 </mapper>

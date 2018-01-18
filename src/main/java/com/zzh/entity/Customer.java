@@ -1,5 +1,7 @@
 package com.zzh.entity;
 
+import com.zzh.util.Unit;
+
 /**
  * Created by zhenghua.zhang on 2018/1/11.
  */

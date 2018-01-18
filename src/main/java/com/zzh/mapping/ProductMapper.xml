@@ -20,6 +20,7 @@
         <result column="modified_date"  property="modifiedDate" jdbcType="TIMESTAMP"/>
         <result column="modified_by"    property="modifiedBy"   jdbcType="VARCHAR"  />
         <result column="deleted"        property="deleted"      jdbcType="INTEGER"  />
+        <result column="type_id"        property="typeId"       jdbcType="INTEGER"  />
         <association    property="type"     resultMap="TypeMap" />
         <collection property="pictures" ofType="com.zzh.entity.MyFile">
             <id     column="file_id"      property="fileId"       jdbcType="INTEGER" />
@@ -63,11 +64,11 @@
 
     <insert id="insertOne" useGeneratedKeys="true" keyProperty="productId" parameterType="com.zzh.entity.Product">
         INSERT INTO bus_product
-        (product_name, created_date, created_by, modified_date, modified_by, deleted, available, price, stock, discount, description, sale_price)
+        (product_name, created_date, created_by, modified_date, modified_by, deleted, available, price, stock, discount, description, sale_price, type_id)
         VALUES
         (
           #{productName}, #{createdDate}, #{createdBy}, #{modifiedDate}, #{modifiedBy},
-          #{deleted}, #{available}, #{price}, #{stock}, #{discount}, #{description}, #{salePrice}
+          #{deleted}, #{available}, #{price}, #{stock}, #{discount}, #{description}, #{salePrice}, #{typeId}
         )
     </insert>
 

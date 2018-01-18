@@ -1,6 +1,8 @@
 package com.zzh.service;
 
 import com.zzh.entity.Order;
+import com.zzh.entity.Page;
+import com.zzh.entity.dto.OrderSelectPageDto;
 
 import java.util.List;
 
@@ -14,5 +16,11 @@ public interface OrderService {
     List<Order> findByCustomerId(Long customerId);
 
     Order findByOrderId(Long orderId);
+
+    Order findByOrderIdWithCustomer(Long orderId);
+
+    Page<Order> findList(OrderSelectPageDto dto);
+
+    void changeOrderStatus(Long orderId, Integer status);
 
 }
