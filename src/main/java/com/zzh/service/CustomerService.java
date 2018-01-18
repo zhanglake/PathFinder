@@ -10,7 +10,7 @@ public interface CustomerService {
 
     Page<Customer> findList(Page page, Object param);
 
-    void addOrUpdateCustomer(Customer customer) throws Exception;
+    Customer addOrUpdateCustomer(Customer customer) throws Exception;
 
     Customer findOneByPhone(String phone);
 

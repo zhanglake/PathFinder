@@ -31,8 +31,8 @@ public class CustomerController {
     @ResponseBody
     public Result addOrUpdateCustomer(@RequestBody Customer customer) {
         try {
-            customerService.addOrUpdateCustomer(customer);
-            return new Result("保存成功");
+            customer = customerService.addOrUpdateCustomer(customer);
+            return new Result("保存成功", customer);
         } catch (Exception e) {
             e.printStackTrace();
             return new Result("保存失败");

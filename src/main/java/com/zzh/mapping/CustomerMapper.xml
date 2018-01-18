@@ -37,7 +37,7 @@
         OR mobile = #{0}
     </select>
 
-    <insert id="insertCustomer" parameterType="com.zzh.entity.Customer">
+    <insert id="insertCustomer" useGeneratedKeys="true" keyProperty="customerId" parameterType="com.zzh.entity.Customer">
         INSERT INTO bus_customer
           (customer_name, created_date, created_by, modified_date, modified_by, deleted, contact, phone, mobile, province, address)
         VALUES

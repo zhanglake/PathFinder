@@ -39,10 +39,24 @@ public class Result {
         this.data = data;
     }
 
+    public Result(String message, Object data) {
+        this.code = 200;
+        this.status = ResultStatus.SUCCESS;
+        this.message = message;
+        this.data = data;
+    }
+
     public Result(Integer code, ResultStatus status, String message) {
         this.code = code;
         this.status = status;
         this.message = message;
+    }
+
+    public Result(Integer code, ResultStatus status, String message, Object data) {
+        this.code = code;
+        this.status = status;
+        this.message = message;
+        this.data = data;
     }
 
     public void setCode(Integer code) {

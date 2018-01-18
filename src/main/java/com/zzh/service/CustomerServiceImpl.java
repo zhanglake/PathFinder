@@ -35,12 +35,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void addOrUpdateCustomer(Customer customer) throws Exception {
-        customer.setProvinceInt(customer.getProvince().ordinal());
+    public Customer addOrUpdateCustomer(Customer customer) throws Exception {
+        if (null == customer.getProvince()) {
+            customer.setProvinceInt(Unit.PROVINCE.JIANGSU.ordinal());
+        } else {
+            customer.setProvinceInt(customer.getProvince().ordinal());
+        }
         if (null != customer.getCustomerId()) {
         } else {
             customerDao.insertCustomer(customer);
         }
+        return customer;
     }
 
     @Override
