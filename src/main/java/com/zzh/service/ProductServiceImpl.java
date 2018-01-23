@@ -94,4 +94,10 @@ public class ProductServiceImpl implements ProductService {
         return dtos;
     }
 
+    @Override
+    public List<Product> findNew5() {
+        List<Product> products = productDao.findNew5();
+        return products;
+    }
+
 }

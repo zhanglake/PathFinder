@@ -22,4 +22,6 @@ public interface ProductService {
 
     List<ProductListByTypeDto> findProductsByType();
 
+    List<Product> findNew5();
+
 }

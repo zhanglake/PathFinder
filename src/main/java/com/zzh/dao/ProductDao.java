@@ -30,4 +30,6 @@ public interface ProductDao {
 
     List<Product> findByTypeId(Long typeId);
 
+    List<Product> findNew5();
+
 }

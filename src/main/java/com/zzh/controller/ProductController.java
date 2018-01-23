@@ -64,4 +64,15 @@ public class ProductController {
         return new Result(dtos);
     }
 
+    /**
+     * 查找最近的5个新品
+     * @return
+     */
+    @RequestMapping(value = "/c/new5", method = RequestMethod.GET)
+    @ResponseBody
+    public Result findNew5() {
+        List<Product> products = productService.findNew5();
+        return new Result(products);
+    }
+
 }

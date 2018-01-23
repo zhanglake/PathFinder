@@ -60,6 +60,17 @@
         LEFT JOIN sys_file f ON f.file_id = pp.file_id
         LEFT JOIN bus_type t ON t.type_id = p.type_id
         WHERE p.type_id = #{0}
+        AND deleted = 0
+    </select>
+
+    <select id="findNew5" resultMap="ProductMap">
+        SELECT *
+        FROM bus_product p
+        LEFT JOIN bus_product_pic pp ON p.product_id = pp.product_id
+        LEFT JOIN sys_file f ON f.file_id = pp.file_id
+        LEFT JOIN bus_type t ON t.type_id = p.type_id
+        ORDER BY p.product_id DESC
+        LIMIT 0, 5
     </select>
 
     <insert id="insertOne" useGeneratedKeys="true" keyProperty="productId" parameterType="com.zzh.entity.Product">

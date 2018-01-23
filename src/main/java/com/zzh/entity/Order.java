@@ -18,11 +18,22 @@ public class Order extends BaseEntity {
     // 对应订单详情
     private List<OrderDetail> orderDetails;
     private List<Long> orderDetailIds;
-    // 总价
+    // 原总价
     private Double totalPrice;
+    // 打折总价
+    private Double totalSalePrice;
     // 订单状态
     private Unit.ORDER_STATUS status = Unit.ORDER_STATUS.CREATED;
     private Integer statusInt = 0;
+
+    public void setTotalSalePrice(Double totalSalePrice) {
+        this.totalSalePrice = totalSalePrice;
+    }
+
+    public Double getTotalSalePrice() {
+
+        return totalSalePrice;
+    }
 
     public void setOrderCode(String orderCode) {
         this.orderCode = orderCode;

@@ -16,10 +16,31 @@ public class OrderDetail {
     private Integer count;
     // 产品单价
     private Double price;
+    // 产品打折售价
+    private Double salePrice;
     // 价格小计
     private Double countPrice;
+    // 折后价格小计
+    private Double countSalePrice;
     // 备注
     private String description;
+
+    public void setSalePrice(Double salePrice) {
+        this.salePrice = salePrice;
+    }
+
+    public void setCountSalePrice(Double countSalePrice) {
+        this.countSalePrice = countSalePrice;
+    }
+
+    public Double getCountSalePrice() {
+
+        return countSalePrice;
+    }
+
+    public Double getSalePrice() {
+        return salePrice;
+    }
 
     public void setOrder(Order order) {
         this.order = order;
