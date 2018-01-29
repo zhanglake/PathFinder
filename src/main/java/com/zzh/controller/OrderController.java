@@ -84,7 +84,7 @@ public class OrderController {
             return new Result();
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result(400, Result.ResultStatus.DANGER, "操作失败!");
+            return new Result(400, Result.ResultStatus.ERROR, "操作失败!");
         }
     }
 

@@ -4,6 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
                         http://www.springframework.org/schema/context
@@ -11,7 +12,9 @@
                         http://www.springframework.org/schema/mvc
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
                         http://www.springframework.org/schema/task
-                        http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+                        http://www.springframework.org/schema/task/spring-task-3.0.xsd
+                        http://www.springframework.org/schema/websocket
+                        http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
     <!-- 启用spring mvc 注解 -->
     <context:annotation-config/>
@@ -51,5 +54,16 @@
     <task:executor id="executor" pool-size="5" />
     <task:scheduler id="scheduler" pool-size="10" />
     <task:annotation-driven executor="executor" scheduler="scheduler" />
+
+    <!-- websocket相关 -->
+    <bean id="demoWSHandler" class="com.zzh.util.websocket.MyWebSocketHandler"/>
+
+    <websocket:handlers allowed-origins="*">
+        <websocket:mapping path="/websocket" handler="demoWSHandler"/>
+        <websocket:handshake-interceptors>
+            <bean class="com.zzh.util.websocket.HandshakeInterceptor"/>
+        </websocket:handshake-interceptors>
+    </websocket:handlers>
+
 
 </beans>

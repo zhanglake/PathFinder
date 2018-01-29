@@ -4,9 +4,11 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.zzh.dao.UserDao;
 import com.zzh.entity.Page;
 import com.zzh.entity.User;
+import com.zzh.entity.dto.LoginDto;
 import com.zzh.entity.dto.SelectPageDto;
 import com.zzh.entity.dto.UserRoleDto;
 import com.zzh.entity.dto.UserSaveDto;
+import com.zzh.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -79,6 +81,20 @@ public class UserServiceImpl implements UserService {
             dtos.add(dto);
         }
         userDao.insertUserRole(dtos);
+    }
+
+    @Override
+    public User selectForLogin(LoginDto dto) {
+        String salt = Utils.createSalt();
+        User user = userDao.selectForLogin(dto.getName());
+        if (null == user) {
+            return null;
+        }
+        String aa = Utils.createPwd(dto.getPassword(), user.getSalt());
+        if (!Utils.createPwd(dto.getPassword(), user.getSalt()).equals(user.getPassword())) {
+            return null;
+        }
+        return user;
     }
 
 }

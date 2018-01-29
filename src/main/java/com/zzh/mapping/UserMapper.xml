@@ -133,4 +133,11 @@
         </foreach>
     </insert>
 
+    <select id="selectForLogin" parameterType="java.lang.String" resultMap="SimpleResultMap">
+        SELECT *
+        FROM sys_user
+        WHERE username = #{0}
+        AND deleted = 0
+    </select>
+
 </mapper>

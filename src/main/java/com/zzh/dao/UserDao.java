@@ -36,4 +36,6 @@ public interface UserDao {
 
     void insertUserRole(List list);
 
+    User selectForLogin(String userName);
+
 }

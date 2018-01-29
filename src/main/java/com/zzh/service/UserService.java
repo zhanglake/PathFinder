@@ -2,6 +2,7 @@ package com.zzh.service;
 
 import com.zzh.entity.Page;
 import com.zzh.entity.User;
+import com.zzh.entity.dto.LoginDto;
 import com.zzh.entity.dto.UserSaveDto;
 
 import java.util.List;
@@ -28,5 +29,7 @@ public interface UserService {
     void deleteUserRole(Long userId);
 
     void insertUserRole(Long userId, List<Long> roleIds);
+
+    User selectForLogin(LoginDto dto);
 
 }
