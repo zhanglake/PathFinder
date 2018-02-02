@@ -99,6 +99,13 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
+    <select id="findTopTen" resultMap="OrderMap">
+        SELECT *
+        FROM bus_order
+        ORDER BY order_id DESC
+        LIMIT 0, 10;
+    </select>
+
     <update id="changeOrderStatus">
         UPDATE bus_order
         SET status = #{1}

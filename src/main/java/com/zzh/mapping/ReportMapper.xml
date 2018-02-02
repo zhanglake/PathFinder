@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzh.dao.ReportDao">
+
+    <select id="findTodayCount" resultType="com.zzh.entity.dto.OrderData">
+        SELECT count(*) orderCount, sum(total_sale_price) orderPrice
+        FROM bus_order
+        WHERE YEAR(NOW()) = YEAR(created_date)
+        AND MONTH(NOW()) = MONTH(created_date)
+        AND DAY(NOW()) = DAY(created_date)
+    </select>
+
+    <select id="findYesterdayCount" resultType="com.zzh.entity.dto.OrderData">
+        SELECT count(*) orderCount, sum(total_sale_price) orderPrice
+        FROM bus_order
+        WHERE YEAR(NOW()) = YEAR(created_date)
+        AND MONTH(NOW()) = MONTH(created_date)
+        AND DAY(DATE_SUB(NOW(), INTERVAL 1 DAY)) = DAY(created_date)
+    </select>
+
+    <select id="findCalendar" resultType="com.zzh.entity.dto.CalendarData">
+        SELECT YEAR(created_date) year, MONTH(created_date) month,
+        DAY(created_date) day, count(*) count
+        FROM bus_order
+        WHERE YEAR(NOW()) = YEAR(created_date)
+        AND MONTH(NOW()) = MONTH(created_date)
+        GROUP BY DAY(created_date)
+    </select>
+
+    <select id="findStatusOrder" resultType="com.zzh.entity.dto.StatusOrderData">
+        SELECT status, count(*) count
+        FROM bus_order
+        GROUP BY status
+    </select>
+
+    <select id="findTodayToDealOrder" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM bus_order
+        WHERE status <![CDATA[<]]> 3
+        AND YEAR(NOW()) = YEAR(created_date)
+        AND MONTH(NOW()) = MONTH(created_date)
+        AND DAY(NOW()) = DAY(created_date)
+    </select>
+
+</mapper>

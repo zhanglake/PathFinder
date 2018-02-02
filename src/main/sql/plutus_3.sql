@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2018-01-16 18:17:40
+Date: 2018-02-02 16:35:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,20 +66,23 @@ CREATE TABLE `bus_order` (
   `modified_by` varchar(100) DEFAULT NULL,
   `deleted` int(10) DEFAULT NULL,
   `order_code` varchar(100) DEFAULT NULL,
+  `total_sale_price` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of bus_order
 -- ----------------------------
-INSERT INTO `bus_order` VALUES ('1', '1', '190.00', '0', null, null, null, null, null, '12345678901');
-INSERT INTO `bus_order` VALUES ('2', '1', '190.00', '0', null, null, null, null, null, '12345678902');
-INSERT INTO `bus_order` VALUES ('3', '1', '190.00', '0', null, null, null, null, null, '12345678903');
-INSERT INTO `bus_order` VALUES ('4', '1', '190.00', '0', null, null, null, null, null, '12345678904');
-INSERT INTO `bus_order` VALUES ('5', '1', '190.00', '1', null, null, null, null, null, '12345678905');
-INSERT INTO `bus_order` VALUES ('6', '1', '200.00', '4', null, null, null, null, null, '12345678906');
-INSERT INTO `bus_order` VALUES ('7', '1', '100.00', '2', null, null, null, null, null, '12345678907');
-INSERT INTO `bus_order` VALUES ('8', '1', '100.00', '3', null, null, null, null, null, '12345678908');
+INSERT INTO `bus_order` VALUES ('19', '1', '159.00', '0', '2018-01-23 16:14:43', '系统', '2018-01-23 16:14:43', '系统', '0', 'CM201801231811565939', '159.00');
+INSERT INTO `bus_order` VALUES ('20', '1', '159.00', '0', '2018-01-24 16:14:43', '系统', '2018-01-23 16:14:43', '系统', '0', 'CM201801231811565939', '159.00');
+INSERT INTO `bus_order` VALUES ('21', '1', '159.00', '0', '2018-01-24 16:14:43', '系统', '2018-01-23 16:14:43', '系统', '0', 'CM201801231811565939', '159.00');
+INSERT INTO `bus_order` VALUES ('22', '1', '159.00', '0', '2018-01-09 16:14:43', '系统', '2018-01-23 16:14:43', '系统', '0', 'CM201801231811565939', '159.00');
+INSERT INTO `bus_order` VALUES ('23', '1', '159.00', '3', '2018-01-31 16:14:43', '系统', '2018-01-23 16:14:43', '系统', '0', 'CM201801231811565939', '159.00');
+INSERT INTO `bus_order` VALUES ('24', '1', '159.00', '2', '2018-02-01 16:14:43', '系统', '2018-01-23 16:14:43', '系统', '0', 'CM201801231811565939', '159.00');
+INSERT INTO `bus_order` VALUES ('25', '1', '159.00', '3', '2018-02-01 16:14:43', '系统', '2018-01-23 16:14:43', '系统', '0', 'CM201801231811565939', '159.00');
+INSERT INTO `bus_order` VALUES ('26', '1', '159.00', '3', '2018-02-02 16:14:43', '系统', '2018-01-23 16:14:43', '系统', '0', 'CM201801231811565939', '159.00');
+INSERT INTO `bus_order` VALUES ('27', '1', '159.00', '0', '2018-02-01 16:14:43', '系统', '2018-01-23 16:14:43', '系统', '0', 'CM201801231811565939', '159.00');
+INSERT INTO `bus_order` VALUES ('28', '1', '159.00', '0', '2018-02-03 16:14:43', '系统', '2018-01-23 16:14:43', '系统', '0', 'CM201801231811565939', '159.00');
 
 -- ----------------------------
 -- Table structure for bus_order_detail
@@ -93,30 +96,15 @@ CREATE TABLE `bus_order_detail` (
   `price` decimal(10,2) DEFAULT '0.00',
   `count_price` decimal(10,2) DEFAULT '0.00',
   `description` varchar(255) DEFAULT NULL,
+  `coun_sale_price` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`order_detail_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of bus_order_detail
 -- ----------------------------
-INSERT INTO `bus_order_detail` VALUES ('1', '1', '1', '1', '100.00', '100.00', null);
-INSERT INTO `bus_order_detail` VALUES ('2', '2', '1', '1', '70.00', '70.00', null);
-INSERT INTO `bus_order_detail` VALUES ('3', '13', '1', '1', '20.00', '20.00', null);
-INSERT INTO `bus_order_detail` VALUES ('4', '1', '2', '1', '100.00', '100.00', null);
-INSERT INTO `bus_order_detail` VALUES ('5', '2', '2', '1', '70.00', '70.00', null);
-INSERT INTO `bus_order_detail` VALUES ('6', '13', '2', '1', '20.00', '20.00', null);
-INSERT INTO `bus_order_detail` VALUES ('7', '1', '3', '1', '100.00', '100.00', null);
-INSERT INTO `bus_order_detail` VALUES ('8', '2', '3', '1', '70.00', '70.00', null);
-INSERT INTO `bus_order_detail` VALUES ('9', '13', '3', '1', '20.00', '20.00', null);
-INSERT INTO `bus_order_detail` VALUES ('10', '1', '4', '1', '100.00', '100.00', null);
-INSERT INTO `bus_order_detail` VALUES ('11', '2', '4', '1', '70.00', '70.00', null);
-INSERT INTO `bus_order_detail` VALUES ('12', '13', '4', '1', '20.00', '20.00', null);
-INSERT INTO `bus_order_detail` VALUES ('13', '1', '5', '1', '100.00', '100.00', null);
-INSERT INTO `bus_order_detail` VALUES ('14', '2', '5', '1', '70.00', '70.00', null);
-INSERT INTO `bus_order_detail` VALUES ('15', '13', '5', '1', '20.00', '20.00', null);
-INSERT INTO `bus_order_detail` VALUES ('16', '1', '6', '2', '100.00', '200.00', null);
-INSERT INTO `bus_order_detail` VALUES ('17', '1', '7', '1', '100.00', '100.00', null);
-INSERT INTO `bus_order_detail` VALUES ('18', '1', '8', '1', '100.00', '100.00', null);
+INSERT INTO `bus_order_detail` VALUES ('25', '23', '19', '1', '100.00', '100.00', null, null);
+INSERT INTO `bus_order_detail` VALUES ('26', '25', '19', '1', '80.00', '80.00', null, null);
 
 -- ----------------------------
 -- Table structure for bus_product
@@ -138,29 +126,35 @@ CREATE TABLE `bus_product` (
   `sale_price` decimal(10,2) DEFAULT '0.00',
   `type_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of bus_product
 -- ----------------------------
-INSERT INTO `bus_product` VALUES ('1', '大面包', null, null, null, null, '0', '1', '100.00', '100', '0.90', 'aaa', '90.00', '1');
-INSERT INTO `bus_product` VALUES ('2', '小面包', null, null, '2018-01-15 15:48:55', '系统', '0', '1', '70.00', '100', '1.00', 'bbb', '70.00', '1');
-INSERT INTO `bus_product` VALUES ('5', 'hahah', '2018-01-15 13:47:36', '系统', '2018-01-15 15:48:46', '系统', '0', '1', '100.00', '100', '0.95', 'asdasd', '95.00', '2');
-INSERT INTO `bus_product` VALUES ('6', 'hehea', '2018-01-15 13:52:50', '系统', '2018-01-15 15:48:41', '系统', '0', '1', '100.00', '100', '0.85', '111', '85.00', '2');
-INSERT INTO `bus_product` VALUES ('7', '000', '2018-01-15 13:57:05', '系统', '2018-01-15 15:48:35', '系统', '0', '1', '10.00', '10', '0.95', 'asda', '9.50', '3');
-INSERT INTO `bus_product` VALUES ('8', '法棍', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '3');
-INSERT INTO `bus_product` VALUES ('9', '法棍1', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '4');
-INSERT INTO `bus_product` VALUES ('10', '法棍2', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '4');
-INSERT INTO `bus_product` VALUES ('11', '法棍3', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '5');
-INSERT INTO `bus_product` VALUES ('12', '法棍4', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '5');
-INSERT INTO `bus_product` VALUES ('13', '法棍5', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '1');
-INSERT INTO `bus_product` VALUES ('14', '法棍6', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '2');
-INSERT INTO `bus_product` VALUES ('15', '法棍7', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '3');
-INSERT INTO `bus_product` VALUES ('16', '法棍8', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '4');
-INSERT INTO `bus_product` VALUES ('17', '法棍9', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '5');
-INSERT INTO `bus_product` VALUES ('18', '法棍10', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '1');
-INSERT INTO `bus_product` VALUES ('19', '法棍11', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '2');
-INSERT INTO `bus_product` VALUES ('20', '法棍12', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '0', '1', '20.00', '100', '1.00', '无描述', '20.00', '3');
+INSERT INTO `bus_product` VALUES ('1', '大面包', null, null, null, null, '1', '1', '100.00', '100', '0.90', 'aaa', '90.00', '1');
+INSERT INTO `bus_product` VALUES ('2', '小面包', null, null, '2018-01-15 15:48:55', '系统', '1', '1', '70.00', '100', '1.00', 'bbb', '70.00', '1');
+INSERT INTO `bus_product` VALUES ('5', 'hahah', '2018-01-15 13:47:36', '系统', '2018-01-15 15:48:46', '系统', '1', '1', '100.00', '100', '0.95', 'asdasd', '95.00', '2');
+INSERT INTO `bus_product` VALUES ('6', 'hehea', '2018-01-15 13:52:50', '系统', '2018-01-15 15:48:41', '系统', '1', '1', '100.00', '100', '0.85', '111', '85.00', '2');
+INSERT INTO `bus_product` VALUES ('7', '000', '2018-01-15 13:57:05', '系统', '2018-01-15 15:48:35', '系统', '1', '1', '10.00', '10', '0.95', 'asda', '9.50', '3');
+INSERT INTO `bus_product` VALUES ('8', '法棍', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '3');
+INSERT INTO `bus_product` VALUES ('9', '法棍1', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '4');
+INSERT INTO `bus_product` VALUES ('10', '法棍2', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '4');
+INSERT INTO `bus_product` VALUES ('11', '法棍3', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '5');
+INSERT INTO `bus_product` VALUES ('12', '法棍4', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '5');
+INSERT INTO `bus_product` VALUES ('13', '法棍5', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '1');
+INSERT INTO `bus_product` VALUES ('14', '法棍6', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '2');
+INSERT INTO `bus_product` VALUES ('15', '法棍7', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '3');
+INSERT INTO `bus_product` VALUES ('16', '法棍8', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '4');
+INSERT INTO `bus_product` VALUES ('17', '法棍9', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '5');
+INSERT INTO `bus_product` VALUES ('18', '法棍10', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '1');
+INSERT INTO `bus_product` VALUES ('19', '法棍11', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '2');
+INSERT INTO `bus_product` VALUES ('20', '法棍12', '2018-01-15 15:50:52', '系统', '2018-01-15 15:50:52', '系统', '1', '1', '20.00', '100', '1.00', '无描述', '20.00', '3');
+INSERT INTO `bus_product` VALUES ('22', '小熊维尼', '2018-01-17 09:39:59', '系统', '2018-01-17 09:39:59', '系统', '1', '1', '190.00', '10', '0.85', '啊啊啊啊啊啊啊', '161.50', '2');
+INSERT INTO `bus_product` VALUES ('23', 'AAAA', '2018-01-23 12:17:29', '系统', '2018-01-23 13:16:31', '系统', '0', '1', '100.00', '100', '0.95', 'AAAAAAAAAA', '95.00', '1');
+INSERT INTO `bus_product` VALUES ('24', 'BBBB', '2018-01-23 12:17:52', '系统', '2018-01-23 13:15:28', '系统', '0', '1', '90.00', '100', '1.00', 'BBBBBBBBB', '90.00', '2');
+INSERT INTO `bus_product` VALUES ('25', 'CCCC', '2018-01-23 12:18:07', '系统', '2018-01-23 13:15:17', '系统', '0', '1', '80.00', '100', '0.80', 'CCCCCCCCCCCC', '64.00', '3');
+INSERT INTO `bus_product` VALUES ('26', 'DDDDDDDD', '2018-01-23 12:18:32', '系统', '2018-01-23 13:15:10', '系统', '0', '1', '70.00', '100', '0.50', 'DDDDDDDDD', '35.00', '4');
+INSERT INTO `bus_product` VALUES ('27', 'EEEEE', '2018-01-23 12:18:52', '系统', '2018-01-23 13:15:03', '系统', '0', '1', '200.00', '100', '0.90', 'EEEEE', '180.00', '5');
 
 -- ----------------------------
 -- Table structure for bus_product_pic
@@ -194,6 +188,13 @@ INSERT INTO `bus_product_pic` VALUES ('17', '35');
 INSERT INTO `bus_product_pic` VALUES ('18', '35');
 INSERT INTO `bus_product_pic` VALUES ('19', '35');
 INSERT INTO `bus_product_pic` VALUES ('20', '35');
+INSERT INTO `bus_product_pic` VALUES ('21', '37');
+INSERT INTO `bus_product_pic` VALUES ('22', '37');
+INSERT INTO `bus_product_pic` VALUES ('27', '43');
+INSERT INTO `bus_product_pic` VALUES ('26', '44');
+INSERT INTO `bus_product_pic` VALUES ('25', '45');
+INSERT INTO `bus_product_pic` VALUES ('24', '46');
+INSERT INTO `bus_product_pic` VALUES ('23', '48');
 
 -- ----------------------------
 -- Table structure for bus_type
@@ -225,7 +226,7 @@ CREATE TABLE `sys_file` (
   `path` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`file_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_file
@@ -238,6 +239,19 @@ INSERT INTO `sys_file` VALUES ('32', '631b93404c88ee343c900bedb742e541.jpg', 'jp
 INSERT INTO `sys_file` VALUES ('33', 'a9fe65f336fec4ecc1426e1f263c06ca.jpg', 'jpg', 'files/6e05dbc5-384b-4bc5-93ec-19beccdfb107.jpg', null);
 INSERT INTO `sys_file` VALUES ('34', '631b93404c88ee343c900bedb742e541.jpg', 'jpg', 'files/cfd6dae9-9dcd-4d5c-b31b-283a938c2a67.jpg', null);
 INSERT INTO `sys_file` VALUES ('35', 'a9fe65f336fec4ecc1426e1f263c06ca.jpg', 'jpg', 'files/e3060917-4f07-491a-adcc-d31ccc669a00.jpg', null);
+INSERT INTO `sys_file` VALUES ('36', '50c537b2e34bd6747543509ae45b6dfd.jpg', 'jpg', 'files/64f46bcd-d51c-4b2d-a2d2-07f59fe44772.jpg', null);
+INSERT INTO `sys_file` VALUES ('37', '50c537b2e34bd6747543509ae45b6dfd.jpg', 'jpg', 'files/7f6e91e4-e9bb-4efd-801d-d8aaedc77045.jpg', null);
+INSERT INTO `sys_file` VALUES ('38', '41c47824d86431b71d3e78e43db115d4.jpg', 'jpg', 'files/e10c275b-3a16-4e6a-b28c-49216ee4cc4d.jpg', null);
+INSERT INTO `sys_file` VALUES ('39', '50c537b2e34bd6747543509ae45b6dfd.jpg', 'jpg', 'files/7d57c2d5-9c68-4a2d-b244-aa56e2cd4bd7.jpg', null);
+INSERT INTO `sys_file` VALUES ('40', '1789e1fd5eaeefb0c09fed3ab272b821.jpg', 'jpg', 'files/541a766f-6a9e-4fc2-a588-28b687c21926.jpg', null);
+INSERT INTO `sys_file` VALUES ('41', '631b93404c88ee343c900bedb742e541.jpg', 'jpg', 'files/7259b463-6d5c-4084-acce-e4df13068db8.jpg', null);
+INSERT INTO `sys_file` VALUES ('42', 'a9fe65f336fec4ecc1426e1f263c06ca.jpg', 'jpg', 'files/b440e6ae-4032-4d12-85df-598184605254.jpg', null);
+INSERT INTO `sys_file` VALUES ('43', '41c47824d86431b71d3e78e43db115d4.jpg', 'jpg', 'files/d1fad42b-a2f3-47fb-b214-92dafef76859.jpg', null);
+INSERT INTO `sys_file` VALUES ('44', '50c537b2e34bd6747543509ae45b6dfd.jpg', 'jpg', 'files/c4eb442d-3a75-420a-b00e-ec483c242974.jpg', null);
+INSERT INTO `sys_file` VALUES ('45', '631b93404c88ee343c900bedb742e541.jpg', 'jpg', 'files/7f88a369-76ee-4fa4-b097-e138c929ffce.jpg', null);
+INSERT INTO `sys_file` VALUES ('46', '1789e1fd5eaeefb0c09fed3ab272b821.jpg', 'jpg', 'files/a871703e-0c9e-4574-a5fd-36b6ddc38674.jpg', null);
+INSERT INTO `sys_file` VALUES ('47', 'a9fe65f336fec4ecc1426e1f263c06ca.jpg', 'jpg', 'files/80a36404-f354-45d9-adbb-81219a514c7a.jpg', null);
+INSERT INTO `sys_file` VALUES ('48', 'a9fe65f336fec4ecc1426e1f263c06ca.jpg', 'jpg', 'files/84814b6b-d1ff-462d-848d-86a43685c0c8.jpg', null);
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -382,16 +396,12 @@ CREATE TABLE `sys_user` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `idx_sys_user_username` (`username`),
   KEY `idx_sys_user_organization_id` (`organization_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '2017-09-05 11:30:23', '系统初始化', '2017-11-17 10:39:11', '系统', '0', 'admin', 'd3c59d25033dbf980d29554025c23a75', '1', '8d78869f470951332959580424d4bf4f', '0');
-INSERT INTO `sys_user` VALUES ('2', null, null, null, null, '1', 'aaa', 'asdasdasd', '2', 'asdsad', '1');
-INSERT INTO `sys_user` VALUES ('3', null, null, null, null, '1', 'zxxc', 'asdsad', '2', 'asdas', '0');
-INSERT INTO `sys_user` VALUES ('4', null, null, null, null, '1', 'saf', 'asdas', '3', 'asfas', '0');
-INSERT INTO `sys_user` VALUES ('5', '2017-11-20 11:43:20', '系统', '2017-11-20 11:43:20', '系统', '0', 'zzh', 'b989242b9b2a71fd9461a085d93a16ff', '1', '70d5778e03ee051fea1412ba33512b73', '0');
+INSERT INTO `sys_user` VALUES ('1', '2017-09-05 11:30:23', '系统初始化', '2017-11-17 10:39:11', '系统', '0', 'admin', '7c0b9edc55dd3c67de6b0f15003d4c9e', '1', 'd2cb55e60cd603d8d4778b8a91b3c908273a21f3', '0');
 
 -- ----------------------------
 -- Table structure for sys_user_role

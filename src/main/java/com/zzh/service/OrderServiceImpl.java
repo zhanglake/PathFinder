@@ -80,4 +80,9 @@ public class OrderServiceImpl implements OrderService {
         orderDao.changeOrderStatus(orderId, status);
     }
 
+    @Override
+    public List<Order> findTopTen() {
+        return orderDao.findTopTen();
+    }
+
 }

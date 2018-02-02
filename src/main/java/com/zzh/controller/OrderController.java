@@ -88,5 +88,10 @@ public class OrderController {
         }
     }
 
+    @RequestMapping(value = "/ten", method = RequestMethod.GET)
+    @ResponseBody
+    public Result findTopTen() {
+        return new Result(orderService.findTopTen());
+    }
 
 }

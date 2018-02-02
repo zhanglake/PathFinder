@@ -27,4 +27,6 @@ public interface OrderDao {
 
     void changeOrderStatus(Long orderId, Integer status);
 
+    List<Order> findTopTen();
+
 }

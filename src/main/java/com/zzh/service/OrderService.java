@@ -23,4 +23,6 @@ public interface OrderService {
 
     void changeOrderStatus(Long orderId, Integer status);
 
+    List<Order> findTopTen();
+
 }
