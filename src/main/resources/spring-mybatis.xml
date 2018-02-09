@@ -33,7 +33,23 @@
         <!-- 连接池最小空闲 -->
         <property name="minIdle" value="${minIdle}"></property>
         <!-- 获取连接最大等待时间 -->
-        <property name="maxWait" value="${maxWait}"></property>
+        <!--removeAbandoned: 是否自动回收超时连接-->
+        <property name="removeAbandoned" value="true"/>
+        <!--removeAbandonedTimeout: 超时时间(以秒数为单位)-->
+        <property name="removeAbandonedTimeout" value="180"/>
+        <!--maxWait: 超时等待时间以毫秒为单位 6000毫秒/1000等于60秒-->
+        <property name="maxWait" value="3000"/>
+        <!-- SQL查询,用来验证从连接池取出的连接 -->
+        <property name="validationQuery" value="SELECT 1" />
+        <property name="testOnBorrow" value="true" />
+        <!-- 指明连接是否被空闲连接回收器(如果有)进行检验，如果检测失败，则连接将被从池中去除 -->
+        <property name="testWhileIdle" value="true" />
+        <!-- 在每次空闲连接回收器线程(如果有)运行时检查的连接数量，最好和maxActive一致 -->
+        <property name="numTestsPerEvictionRun" value="20"/>
+        <!-- 在空闲连接回收器线程运行期间休眠的时间值,以毫秒为单位，一般比minEvictableIdleTimeMillis小 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <!-- 连接池中连接，在时间段内一直空闲，被逐出连接池的时间(1000*60*60)，以毫秒为单位 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
     </bean>
 
     <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->

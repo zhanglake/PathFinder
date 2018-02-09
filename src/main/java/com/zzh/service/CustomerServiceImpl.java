@@ -5,6 +5,7 @@ import com.zzh.entity.Customer;
 import com.zzh.entity.Page;
 import com.zzh.util.Unit;
 import com.zzh.entity.dto.SelectPageDto;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Service
 public class CustomerServiceImpl implements CustomerService {
+    Logger logger = Logger.getLogger(CustomerServiceImpl.class);
 
     @Autowired
     private CustomerDao customerDao;
