@@ -36,7 +36,7 @@ public class Unit {
 
     // 订单状态
     public static enum ORDER_STATUS {
-        CREATED("已创建"), PAYED("已付款"), CONFIRMED("已确认"), DELIVERED("发货中"), FINISHED("已完成");
+        CREATED("已创建"), PAYED("已付款"), CONFIRMED("已确认"), DELIVERED("发货中"), FINISHED("已完成"), CLOSED("已关闭");
 
         private String name;
 

@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class PingServiceImpl implements PingService {
 
-    @Autowired
-    private PingDao pingDao;
+//    @Autowired
+//    private PingDao pingDao;
 
     @Override
     public void pingSql() throws Exception{
-        pingDao.pingSql();
+//        pingDao.pingSql();
     }
 
 }
