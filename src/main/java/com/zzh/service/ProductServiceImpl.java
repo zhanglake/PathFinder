@@ -45,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void insertOrUpdateOne(ProductSaveDto dto) {
+        System.out.println("name:" + dto.getProductName());
         // 保存产品信息
         Product product = new Product();
         product.setProductName(dto.getProductName());
